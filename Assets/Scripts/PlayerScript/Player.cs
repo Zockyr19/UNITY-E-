@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
 
     bool isAbleToRun, isGrounded;
 
+    public static Vector3 lastCheckPointPos = new Vector3(-3,0);
+
     public int maxHealth = 4;
     public float maxStamina = 100, maxHunger = 100;
     
@@ -81,6 +83,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+
+        GameObject.FindGameObjectWithTag("Player").transform.position = lastCheckPointPos;
+        
         PlayerAnim = GetComponent<Animator>();
         PlayerAudio = GetComponent<AudioSource>();
         PlayerController = GetComponent<CharacterController>();
@@ -121,6 +126,7 @@ public class Player : MonoBehaviour
 
         if (freeKid == 3)
         {
+            GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0,0);
             endMenuGroup.alpha = 1f;
             endMenuGroup.interactable = true;
         }
@@ -207,7 +213,10 @@ public class Player : MonoBehaviour
 
     void regenHunger(float regenHunger)
     {
+
         currentHunger += regenHunger;
+        if(currentHunger > 100)
+        currentHunger = 100;
 
         PlayerHungerBar.SetHunger(currentHunger);
     }

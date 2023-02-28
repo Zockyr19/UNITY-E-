@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement; 
 using UnityEngine;
 
 public class EndMenu : MonoBehaviour
@@ -13,22 +14,18 @@ public class EndMenu : MonoBehaviour
     {
         EndMenuButton();
         endMenuGroup = GameObject.Find("EndCanvas").GetComponent<CanvasGroup>();
-
     }
-
 
     public void EndMenuButton()
     {
         // Show Main Menu
         QuitMenu.SetActive(true);
-        Debug.Log("coucou");
     }
+
     public void RestartButton()
     {
-        // Show Main Menu
-        Debug.Log("coucou2");
         endMenuGroup.alpha = 0f;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void QuitButton()
