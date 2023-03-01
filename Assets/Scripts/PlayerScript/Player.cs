@@ -164,23 +164,6 @@ public class Player : MonoBehaviour
             transform.Rotate(Vector3.up * -rot * 20 * Time.deltaTime);
         }
 
-        //running
-        if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.LeftShift) && currentStamina > 0 && isAbleToRun == true)
-        {
-            PlayerAnim.SetBool(RunHash, true);
-            transform.Translate(Vector3.forward * speed * axeVertical * 2 * Time.deltaTime);
-            LosingStamina(10);
-            if(currentStamina <= 0)
-            {
-                PlayerAnim.SetBool(RunHash, false);
-            }
-        }
-        else if (!Input.GetKey(KeyCode.UpArrow) || !Input.GetKey(KeyCode.LeftShift))
-        {
-            PlayerAnim.SetBool(RunHash, false);
-            RegenStamina(20);
-        }
-
         //Jump
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
         {
@@ -200,6 +183,33 @@ public class Player : MonoBehaviour
         else if(!Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
         {
             PlayerAnim.SetBool(JumpHash, false);
+        }
+
+        if(currentHunger <= 0)
+        {
+            endMenuGroup.interactable = true;
+            endMenuGroup.alpha = 1f;
+            endMenu.EndMenuButton();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        //running
+        if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.LeftShift) && currentStamina > 0 && isAbleToRun == true)
+        {
+            PlayerAnim.SetBool(RunHash, true);
+            transform.Translate(Vector3.forward * speed * axeVertical * 2 * Time.deltaTime);
+            LosingStamina(10);
+            if (currentStamina <= 0)
+            {
+                PlayerAnim.SetBool(RunHash, false);
+            }
+        }
+        else if (!Input.GetKey(KeyCode.UpArrow) || !Input.GetKey(KeyCode.LeftShift))
+        {
+            PlayerAnim.SetBool(RunHash, false);
+            RegenStamina(20);
         }
     }
 
